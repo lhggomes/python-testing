@@ -9,3 +9,19 @@ class BlogTest(TestCase):
         self.assertEqual('Test', b.title)
         self.assertEqual('Test Author', b.author)
         self.assertListEqual([], b.posts)
+
+    def test_repr(self):
+        b = Blog('Test', 'Test Author')
+        b2 = Blog('My Day', 'Lucas')
+
+        self.assertEqual(b.__repr__(), 'Test by Test Author (0 posts)')
+        self.assertEqual(b2.__repr__(), 'My Day by Lucas (0 posts)')
+
+    def test_repr_multiple_posts(self):
+        b = Blog('Test', 'Test Author')
+        b.posts = ['test']
+        b2 = Blog('My Day', 'Lucas')
+        b2.posts = ['First', 'Second']
+
+        self.assertEqual(b.__repr__(), 'Test by Test Author (1 post)')
+        self.assertEqual(b2.__repr__(), 'My Day by Lucas (2 posts)')
