@@ -1,6 +1,6 @@
+from blog.app import *
 from unittest import TestCase
 from unittest.mock import patch
-from blog.app import print_blogs, blogs
 from blog.blog import Blog
 
 
@@ -13,3 +13,12 @@ class AppTest(TestCase):
         with patch('builtins.print') as mocked_print:
             print_blogs()
             mocked_print.assert_called_with('- Test by Test Author (0 posts)')
+
+    def test_ask_create_blog(self):
+        with patch('builtins.input') as mocked_print:
+            mocked_print.side_effect = ('Test', 'Test Author')
+            ask_create_blog()
+
+            self.assertIsNotNone(blogs.get('Test'))
+
+
